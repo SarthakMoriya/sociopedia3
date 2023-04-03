@@ -5,15 +5,15 @@ import PostWidget from "./PostWidget";
 
 const PostsWidget = ({ userId, isProfile = false }) => {
   const dispatch = useDispatch();
-  const posts = useSelector((state) => state.posts);
   const token = useSelector((state) => state.token);
 
   const getPosts = async () => {
-    const response = await fetch(`htpp://localhost:8080/posts`, {
+    const response = await fetch(`http://localhost:8080/posts`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await response.json();
+    console.log(data);
     dispatch(setPosts({ data }));
   };
 
@@ -30,16 +30,20 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   };
 
   useEffect(() => {
-    if (isProfile) getUserPosts();
-    else getPosts();
-  }, []);
+    if (isProfile) {
+      getUserPosts();
+    } else {
+      getPosts();
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const posts = useSelector((state) => state.posts);
   return (
     <>
-      {posts.map(
+      {posts?.map(
         ({
           _id,
-          userid,
+          userId,
           firstName,
           lastName,
           description,
@@ -52,7 +56,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
           <PostWidget
             key={_id}
             postId={_id}
-            postUserId={userid}
+            postUserId={userId}
             name={`${firstName} ${lastName} `}
             description={description}
             location={location}

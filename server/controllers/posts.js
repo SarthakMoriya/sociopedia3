@@ -52,6 +52,8 @@ export const likePost = async (req, res) => {
         const { id } = req.params;
         const { userId } = req.body;
         const post = await Posts.findById(id);
+        console.log(post)
+        console.log(id,userId)
 
         const isLiked = post.likes.get(userId);
         //likes is an map dataStructure { userid:true/false }

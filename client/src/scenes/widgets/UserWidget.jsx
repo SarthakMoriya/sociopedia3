@@ -30,7 +30,7 @@ const UserWidget = ({ userId, picturePath }) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await response.json();
-    console.log(data)
+    // console.log(data)
     setUser(data);
   };
 
@@ -39,7 +39,7 @@ const UserWidget = ({ userId, picturePath }) => {
   }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
   if (!user) return null;
-  console.log(user)
+  // console.log(user)
   const {
     firstName,
     lastName,

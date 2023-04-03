@@ -28,16 +28,18 @@ export const authSlice = createSlice({
         setFriends: (state, action) => {
             if (state.user) {
                 state.user.friends = action.payload.friends;
+                console.log(state.user.friends)
             } else {
                 console.log('user friends non-existent :{')
             }
         },
         setPosts: (state, action) => {
             state.posts = action.payload.posts;
+            console.log("Posts set")
         },
         setPost: (state, action) => {
             const updatedPosts = state.posts.map((post) => {
-                if (post._id === action.payload.post_id)
+                if (post._id === action.payload.post._id)
                     return action.payload.post
                 return post;
             })
