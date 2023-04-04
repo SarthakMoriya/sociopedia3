@@ -5,10 +5,13 @@ import Navbar from "../navbar/Navbar";
 import UserWidget from "../widgets/UserWidget";
 import MyPost from "../widgets/MyPost";
 import PostsWidget from "../widgets/PostsWidget";
+import AdvertWidget from "../widgets/AdvertWidget";
+import FriendsListWidget from "../widgets/FriendsListWidget";
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const { _id, picturePath } = useSelector((state) => state.user);
+  // console.log(_id)
   return (
     <Box>
       <Navbar />
@@ -29,7 +32,13 @@ const HomePage = () => {
           <MyPost picturePath={picturePath} />
           <PostsWidget userId={_id} />
         </Box>
-        {isNonMobileScreens && <Box flexBasis="26%"></Box>}
+        {isNonMobileScreens && (
+          <Box flexBasis="26%">
+            <AdvertWidget />
+            <Box m="2rem 0"></Box>
+            <FriendsListWidget userId={_id}/>
+          </Box>
+        )}
       </Box>
     </Box>
   );

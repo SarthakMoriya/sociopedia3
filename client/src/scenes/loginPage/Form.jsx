@@ -12,7 +12,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setLogin } from "../../state/index";
+import { setLogin, setPosts } from "../../state/index";
 import Dropzone from "react-dropzone";
 import FlexBetween from "../../components/FlexBetween";
 
@@ -85,6 +85,18 @@ const Form = () => {
       body: JSON.stringify(values),
     });
     const loggedIn = await loggedInResponse.json();
+
+    const getPosts = async () => {
+      const response = await fetch(`http://localhost:8080/posts`, {
+        method: "GET",
+        headers: { Authorization: `Bearer ${loggedIn.token}` },
+      });
+      const data = await response.json();
+      console.log(data);
+      dispatch(setPosts({ data }));
+    };
+    getPosts();
+
     onSubmitProps.resetForm();
     if (loggedIn) {
       dispatch(
