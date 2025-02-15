@@ -14,10 +14,15 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import twitter from "../../assets/twitter.png";
 import linkedin from "../../assets/linkedin.png";
+import SocialLink from "../../components/SocialLink";
 
 const UserWidget = ({ userId, picturePath }) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
+  const user=useSelector(state=>state.user)
+  const [openSocialModal, setOpenSocialModal] = useState(false);
+  const [socialType, setSocialType] = useState("");
+  const [oldUsername, setOldUsername] = useState('')
   const { palette } = useTheme();
   const token = useSelector((state) => state.token);
   const dark = palette.neutral.dark;
@@ -30,13 +35,19 @@ const UserWidget = ({ userId, picturePath }) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await response.json();
-    // console.log(data)
-    setUser(data);
+    console.log(data)
+    // setUser(data);
+  };
+
+  const handleSocialAccount = (type,value) => {
+    setOpenSocialModal(true);
+    setSocialType(type);
+    setOldUsername(value);
   };
 
   useEffect(() => {
     getUser();
-  }, []);// eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!user) return null;
   // console.log(user)
@@ -117,7 +128,7 @@ const UserWidget = ({ userId, picturePath }) => {
             <img src={twitter} alt="twitter" />
             <Box>
               <Typography color={main} fontWeight="500">
-                Twitter
+                Twitter - {user.socialLinks?.Twitter}
               </Typography>
 
               <Typography color={medium} fontWeight="500">
@@ -125,15 +136,26 @@ const UserWidget = ({ userId, picturePath }) => {
               </Typography>
             </Box>
           </FlexBetween>
-          <EditOutlined sx={{ color: main }} />
+          <EditOutlined
+            onClick={() => handleSocialAccount("Twitter",user.socialLinks?.Twitter)}
+            sx={{ color: main }}
+          />
         </FlexBetween>
-
+        {openSocialModal && (
+          <SocialLink
+            isOpen={openSocialModal}
+            setOpenSocialModal={setOpenSocialModal}
+            type={socialType}
+            value={oldUsername}
+          />
+        )}
+        <div className="">isOpen{openSocialModal}</div>
         <FlexBetween gap="1rem">
           <FlexBetween gap="1rem">
             <img src={linkedin} alt="linkedin" />
             <Box>
               <Typography color={main} fontWeight="500">
-                LinkedIn
+                LinkedIn - {user.socialLinks?.LinkedIn}
               </Typography>
 
               <Typography color={medium} fontWeight="500">
@@ -141,7 +163,10 @@ const UserWidget = ({ userId, picturePath }) => {
               </Typography>
             </Box>
           </FlexBetween>
-          <EditOutlined sx={{ color: main }} />
+          <EditOutlined
+            sx={{ color: main }}
+            onClick={() => handleSocialAccount("LinkedIn",user.socialLinks?.LinkedIn)}
+          />
         </FlexBetween>
       </Box>
     </WidgetWrapper>
