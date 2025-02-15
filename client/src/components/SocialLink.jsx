@@ -29,7 +29,7 @@ const SocialLink = ({ isOpen, setOpenSocialModal, type, value }) => {
   const handleSave = async () => {
     setLoader(true);
     const response = await fetch(
-      `http://localhost:8080/users/${user._id}/social-links`,
+      `https://sociopedia-mc9w.onrender.com/users/${user._id}/social-links`,
       {
         method: "PATCH",
         headers: {

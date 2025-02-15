@@ -8,7 +8,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   const token = useSelector((state) => state.token);
 
   const getPosts = async () => {
-    const response = await fetch(`http://localhost:8080/posts`, {
+    const response = await fetch(`https://sociopedia-mc9w.onrender.com/posts`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });

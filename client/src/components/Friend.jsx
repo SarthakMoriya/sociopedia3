@@ -26,7 +26,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 
   const updateFriend = async () => {
     const response = await fetch(
-      `http://localhost:8080/users/${_id}/${friendId}`,
+      `https://sociopedia-mc9w.onrender.com/users/${_id}/${friendId}`,
       {
         method: "PATCH",
         headers: {

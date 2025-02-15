@@ -37,7 +37,7 @@ const PostWidget = ({
   const primary = palette.primary.main;
 
   const patchLike = async () => {
-    const response = await fetch(`http://localhost:8080/posts/${postId}/like`, {
+    const response = await fetch(`https://sociopedia-mc9w.onrender.com/posts/${postId}/like`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -63,7 +63,7 @@ const PostWidget = ({
         <img
           width="100%"
           height="auto"
-          src={`http://localhost:8080/assets/${picturePath}`}
+          src={`https://sociopedia-mc9w.onrender.com/assets/${picturePath}`}
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
           alt="post"
         />

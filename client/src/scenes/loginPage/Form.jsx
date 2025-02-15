@@ -64,7 +64,7 @@ const Form = () => {
     formData.append("picturePath", values.picture.name);
 
     const savedUserResponse = await fetch(
-      "http://localhost:8080/auth/register",
+      "https://sociopedia-mc9w.onrender.com/auth/register",
       {
         method: "POST",
         body: formData,
@@ -79,7 +79,7 @@ const Form = () => {
   };
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch("http://localhost:8080/auth/login", {
+    const loggedInResponse = await fetch("https://sociopedia-mc9w.onrender.com/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
@@ -87,7 +87,7 @@ const Form = () => {
     const loggedIn = await loggedInResponse.json();
 
     const getPosts = async () => {
-      const response = await fetch(`http://localhost:8080/posts`, {
+      const response = await fetch(`https://sociopedia-mc9w.onrender.com/posts`, {
         method: "GET",
         headers: { Authorization: `Bearer ${loggedIn.token}` },
       });

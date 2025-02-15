@@ -7,7 +7,7 @@ const UserImage = ({ image, size = "60px" }) => {
       <img
         width={size}
         height={size}
-        src={`http://localhost:8080/assets/${image}`}
+        src={`https://sociopedia-mc9w.onrender.com/assets/${image}`}
         style={{ objectFit: "cover", borderRadius: "50%" }}
         alt=""
       />
